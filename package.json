@@ -1,0 +1,22 @@
+{
+  "name": "outbound-node",
+  "version": "0.1.0",
+  "description": "lib-javascript-client =====================",
+  "main": "outbound.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/outboundio/lib-javascript-client.git"
+  },
+  "author": "Travis Beauvais",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/outboundio/lib-javascript-client/issues"
+  },
+  "homepage": "https://github.com/outboundio/lib-javascript-client",
+  "dependencies": {
+      "request": "~2.36.0"
+  }
+}
