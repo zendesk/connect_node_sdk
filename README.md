@@ -1,8 +1,6 @@
 # Outbound Javascript Library
 The Outbound javascript is designed to work in both browsers and within a node.js app.
 
-Promises are used to make asynchronous calls. We've implemented D.js by [maiko](http://malko.github.io/D.js/). See its documentation for complete usage.
-
 ## Browser
 
     <script src="outbound.js"></script>
@@ -74,3 +72,6 @@ Promises are used to make asynchronous calls. We've implemented D.js by [maiko](
 ### Callbacks
 - Error callback takes a single parameter which will be an error object containing 2 properties: `receivedCall` and `message`. `receivedCall` is a `boolean` indicating whether or not Outbound received the API call or if the request failed prior. `message` will be a string describe what exactly went wrong.
 - Success callback takes no parameters.
+
+### Asynchronous Calls
+Promises are used to make asynchronous calls. We've implemented D.js by [maiko](http://malko.github.io/D.js/). Both the `identify` and `track` function calls return promises. You can use `.then(successCallback, errorCallback)` to handle errors and/or success states. See the "Promises Methods" in the [D.js documentation](http://malko.github.io/D.js/) for other options that are supported as well.
