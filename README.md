@@ -6,6 +6,8 @@ The Outbound javascript is designed to work in both browsers and within a node.j
     <script src="outbound.js"></script>
     <script>
         var ob = new outbound("YOUR API KEY");
+
+        // Identify a user
         var userAttributes = {
             first_name: "First",
             last_name: "Last",
@@ -22,6 +24,7 @@ The Outbound javascript is designed to work in both browsers and within a node.j
             errorCallback
         )
 
+        // Track an event
         eventProperties = {
             eventAttr1: "Something"
         }
@@ -36,6 +39,7 @@ The Outbound javascript is designed to work in both browsers and within a node.j
     var outbound = require("outbound");
     var ob = new outbound("YOUR API KEY");
 
+    // Identify a user
     var userAttributes = {
         first_name: "First",
         last_name: "Last",
@@ -52,6 +56,7 @@ The Outbound javascript is designed to work in both browsers and within a node.j
         errorCallback
     )
 
+    // Track an event
     eventProperties = {
         eventAttr1: "Something"
     }
