@@ -120,7 +120,7 @@
         return deferred.promise;
     }
 
-    Outbound.prototype.track = function(userId, event, payload, userAttributes) {
+    Outbound.prototype.track = function(userId, event, properties, userAttributes) {
         var deferred = D();
 
         var typeofUserId = typeof userId;
@@ -130,7 +130,7 @@
         } else  if (typeofEvent != "string") {
             deferred.reject(error("Invalid event. Expected string, got " + typeofEvent, false));
         } else {
-            requestData = {"user_id": userId, "payload": {}}
+            requestData = {"user_id": userId, "properties": {}}
 
             user = user(userAttributes)
             for (var attr in user) {
@@ -140,9 +140,9 @@
                 requestData.user[attr] = user[attr];
             }
 
-            if (payload) {
-                for (var attr in payload) {
-                    requestData.payload[attr] = user[attr];
+            if (properties && typeof properties == 'object') {
+                for (var attr in properties) {
+                    requestData.properties[attr] = user[attr];
                 }
             }
             post('/track', requestData, headers(this.apiKey), deferred);

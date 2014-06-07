@@ -24,10 +24,10 @@ Promises are used to make asynchronous calls. We've implemented D.js by [maiko](
             errorCallback
         )
 
-        eventPayload = {
+        eventProperties = {
             eventAttr1: "Something"
         }
-        ob.track(userId, eventName, eventPayload).then(
+        ob.track(userId, eventName, eventProperties).then(
             successCallback,
             errorCallback
         )
@@ -54,10 +54,10 @@ Promises are used to make asynchronous calls. We've implemented D.js by [maiko](
         errorCallback
     )
 
-    eventPayload = {
+    eventProperties = {
         eventAttr1: "Something"
     }
-    ob.track(userId, eventName, eventPayload).then(
+    ob.track(userId, eventName, eventProperties).then(
         successCallback,
         errorCallback
     )
