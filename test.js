@@ -10,6 +10,7 @@ We don't need a success callback because the HTTP calls will always fail trigger
 an error.
 */
 
+console.log("Testing identify call.");
 ob.identify([1,2]).error(
     function(err) {
         if (err.receivedCall) {
@@ -18,6 +19,7 @@ ob.identify([1,2]).error(
     }
 );
 
+console.log("Testing track call.");
 ob.track([1,2], "1").error(
     function(err) {
         if (err.receivedCall) {

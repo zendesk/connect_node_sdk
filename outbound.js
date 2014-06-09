@@ -20,37 +20,40 @@
         }
     }
 
-    function user(attributes) {
+    function user(info, attributes) {
         data = {};
-        if (attributes) {
-            if (attributes.firstName && typeof attributes.firstName) {
-                data.first_name = attributes.firstName;
+        if (info && Object.prototype.toString.call(info) === '[object Object]') {
+            if (info.firstName && typeof info.firstName) {
+                data.first_name = info.firstName;
             }
-            if (attributes.lastName && typeof attributes.lastName) {
-                data.last_name = attributes.lastName;
+            if (info.lastName && typeof info.lastName) {
+                data.last_name = info.lastName;
             }
-            if (attributes.email && typeof attributes.email) {
-                data.email = attributes.email;
+            if (info.email && typeof info.email) {
+                data.email = info.email;
             }
-            if (attributes.phoneNumber && typeof attributes.phoneNumber) {
-                data.phone_number = attributes.phoneNumber;
+            if (info.phoneNumber && typeof info.phoneNumber) {
+                data.phone_number = info.phoneNumber;
             }
-            if (attributes.apnsTokens) {
-                if (typeof attributes.apnsTokens == 'string') {
-                    attributes.apnsTokens = [attributes.apnsTokens];
+            if (info.apnsTokens) {
+                if (typeof info.apnsTokens == 'string') {
+                    info.apnsTokens = [info.apnsTokens];
                 }
-                if (Object.prototype.toString.call(attributes.apnsTokens) === '[object Array]') {
-                    data.apns = attributes.apnsTokens;
-                }
-            }
-            if (attributes.gcmTokens) {
-                if (typeof attributes.gcmTokens == 'string') {
-                    attributes.gcmTokens = [attributes.gcmTokens];
-                }
-                if (Object.prototype.toString.call(attributes.gcmTokens) === '[object Array]') {
-                    data.gcm = attributes.gcmTokens;
+                if (Object.prototype.toString.call(info.apnsTokens) === '[object Array]') {
+                    data.apns = info.apnsTokens;
                 }
             }
+            if (info.gcmTokens) {
+                if (typeof info.gcmTokens == 'string') {
+                    attributes.gcmTokens = [info.gcmTokens];
+                }
+                if (Object.prototype.toString.call(info.gcmTokens) === '[object Array]') {
+                    data.gcm = info.gcmTokens;
+                }
+            }
+        }
+        if (attributes && Object.prototype.toString.call(attributes) === '[object Object]') {
+            data.attributes = attributes;
         }
         return data
     }
@@ -101,7 +104,7 @@
         this.apiKey = apiKey;
     }
 
-    Outbound.prototype.identify = function(userId, attributes) {
+    Outbound.prototype.identify = function(userId, info, attributes) {
         var deferred = D();
 
         var typeofUserId = typeof userId;
@@ -110,7 +113,7 @@
         } else {
             requestData = {"user_id": userId}
 
-            user = user(attributes)
+            user = user(info, attributes)
             for (var attr in user) {
                 requestData[attr] = user[attr];
             }
@@ -120,7 +123,7 @@
         return deferred.promise;
     }
 
-    Outbound.prototype.track = function(userId, event, properties, userAttributes) {
+    Outbound.prototype.track = function(userId, event, properties, userInfo, userAttributes) {
         var deferred = D();
 
         var typeofUserId = typeof userId;
@@ -132,7 +135,7 @@
         } else {
             requestData = {"user_id": userId, "properties": {}}
 
-            user = user(userAttributes)
+            user = user(userInfo, userAttributes)
             for (var attr in user) {
                 if (!requestData.user) {
                     requestData.user = {};
