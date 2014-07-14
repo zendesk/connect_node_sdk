@@ -1,0 +1,20 @@
+{
+  "name": "outbound-js",
+  "version": "0.1.1",
+  "homepage": "https://github.com/outboundio/lib-javascript",
+  "authors": [
+    "Travis Beauvais <tbeauvais@gmail.com>"
+  ],
+  "main": "outbound.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
