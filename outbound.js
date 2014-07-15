@@ -59,7 +59,7 @@
     }
 
     function post(endpoint, data, headers, deferred) {
-        if (module !== 'undefined') {
+        if (typeof module !== 'undefined') {
             var request = require('request');
             request(
                 {
