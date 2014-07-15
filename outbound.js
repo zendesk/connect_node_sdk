@@ -20,7 +20,7 @@
         }
     }
 
-    function user(info, attributes) {
+    function userObject(info, attributes) {
         data = {};
         if (info && Object.prototype.toString.call(info) === '[object Object]') {
             if (info.firstName && typeof info.firstName) {
@@ -113,7 +113,7 @@
         } else {
             requestData = {"user_id": userId}
 
-            user = user(info, attributes)
+            user = userObject(info, attributes)
             for (var attr in user) {
                 requestData[attr] = user[attr];
             }
@@ -135,7 +135,7 @@
         } else {
             requestData = {"user_id": userId, "properties": {}}
 
-            user = user(userInfo, userAttributes)
+            user = userObject(userInfo, userAttributes)
             for (var attr in user) {
                 if (!requestData.user) {
                     requestData.user = {};
