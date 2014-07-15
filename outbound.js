@@ -154,5 +154,5 @@
     }
 
     typeof window !== 'undefined' && (window.outbound = Outbound)
-    module !== 'undefined' && module.exports && (module.exports = Outbound)
+    typeof module !== 'undefined' && module.exports && (module.exports = Outbound)
 })();
