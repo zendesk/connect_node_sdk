@@ -21,7 +21,7 @@
     }
 
     function userObject(info, attributes) {
-        data = {};
+        var data = {};
         if (info && Object.prototype.toString.call(info) === '[object Object]') {
             if (info.firstName && typeof info.firstName) {
                 data.first_name = info.firstName;
@@ -36,7 +36,7 @@
                 data.phone_number = info.phoneNumber;
             }
             if (info.apnsTokens) {
-                if (typeof info.apnsTokens == 'string') {
+                if (typeof info.apnsTokens === 'string') {
                     info.apnsTokens = [info.apnsTokens];
                 }
                 if (Object.prototype.toString.call(info.apnsTokens) === '[object Array]') {
@@ -44,7 +44,7 @@
                 }
             }
             if (info.gcmTokens) {
-                if (typeof info.gcmTokens == 'string') {
+                if (typeof info.gcmTokens === 'string') {
                     attributes.gcmTokens = [info.gcmTokens];
                 }
                 if (Object.prototype.toString.call(info.gcmTokens) === '[object Array]') {
@@ -143,7 +143,7 @@
                 requestData.user[attr] = user[attr];
             }
 
-            if (properties && typeof properties == 'object') {
+            if (properties && typeof properties === 'object') {
                 for (var attr in properties) {
                     requestData.properties[attr] = user[attr];
                 }
