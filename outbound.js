@@ -133,7 +133,7 @@
         } else  if (typeofEvent != "string") {
             deferred.reject(error("Invalid event. Expected string, got " + typeofEvent, false));
         } else {
-            requestData = {"user_id": userId, "properties": {}}
+            requestData = {"user_id": userId, "properties": {}, "event": event}
 
             user = userObject(userInfo, userAttributes)
             for (var attr in user) {
