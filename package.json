@@ -1,5 +1,5 @@
 {
-  "name": "outbound-node",
+  "name": "outbound",
   "version": "0.1.6",
   "description": "Outbound Javascript Library",
   "main": "outbound.js",
