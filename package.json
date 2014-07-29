@@ -1,6 +1,6 @@
 {
   "name": "outbound",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Outbound Javascript Library",
   "main": "outbound.js",
   "scripts": {
