@@ -1,6 +1,6 @@
 {
   "name": "outbound-js",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "homepage": "https://github.com/outboundio/lib-javascript",
   "authors": [
     "Travis Beauvais <tbeauvais@gmail.com>"
