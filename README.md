@@ -10,6 +10,11 @@ Example: When a user in San Francisco(user attribute) does signup(event) but doe
 The Outbound Javascript library is designed to work in both browsers and within a node.js app.
 
 ## Browser
+### Installation
+
+    bower install outbound
+
+### Usage
 
     <script src="outbound.js"></script>
     <script>
@@ -43,6 +48,11 @@ The Outbound Javascript library is designed to work in both browsers and within 
     </script>
 
 ## Node.js
+### Installation
+
+    npm install outbound
+
+### Usage
 
     var outbound = require("outbound");
     var ob = new outbound("YOUR API KEY");
