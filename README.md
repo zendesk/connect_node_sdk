@@ -83,6 +83,19 @@ The Outbound Javascript library is designed to work in both browsers and within 
         errorCallback
     )
 
+    // Register a device token
+    // Change name to "registerGcmToken" to register GCM token
+    ob.registerApnsToken(userId, token).then(
+        successCallback,
+        errorCallback
+    )
+
+    // Revoke a device token
+    // Change name to "revokeGcmToken" to revoke GCM token
+    ob.revokeApnsToken(userId, token).then(
+        successCallback,
+        errorCallback
+    )
 ## Specifics
 ### User ID
 - A user ID must ALWAYS be a string or a number. Anything else will trigger an error and the call will not be sent to Outbound. User IDs are always stored as strings. Keep this in mind if you have different types. A user with ID of 1 (the number) will be considered the same as user with ID of "1" (the string).
@@ -91,6 +104,9 @@ The Outbound Javascript library is designed to work in both browsers and within 
 ### Event Name
 - An event name in a track can only be a string. Any other type of value will trigger an error and the call will not be sent to Outbound.
 - Event names can be anything you want them to be (as long as they are strings) and contain any character you want.
+
+### Device Tokens
+- If you send a device token through an `identify` call, that is equivalent to sending a `register` call. Regardless of the state of that token it will become active again and we will attempt to send notifications to it. It is recommended that if you use the `register` and `revoke` calls that you DO NOT send any tokens in `identify` calls. This way you can more easily control the state of your tokens.
 
 ### Callbacks
 - Error callback takes a single parameter which will be an error object containing 2 properties: `receivedCall` and `message`. `receivedCall` is a `boolean` indicating whether or not Outbound received the API call or if the request failed prior. `message` will be a string describe what exactly went wrong.
