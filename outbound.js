@@ -120,7 +120,7 @@
             deferred.reject(error("Invalid token. Expected string, got " + typeofToken, false));
         } else {
             requestData = {"user_id": userId, "token": token}
-            post('/' + platform + '/' + (register ? 'register' : 'revoke'), requestData, deferred);
+            post('/' + platform + '/' + (register ? 'register' : 'disable'), requestData, deferred);
         }
         return deferred.promise;
     }
@@ -184,11 +184,11 @@
         return deviceToken(GCM, true, userId, token);
     }
 
-    Outbound.prototype.revokeApnsToken = function(userId, token) {
+    Outbound.prototype.disableApnsToken = function(userId, token) {
         return deviceToken(APNS, false, userId, token);
     }
 
-    Outbound.prototype.revokeGcmToken = function(userId, token) {
+    Outbound.prototype.disableGcmToken = function(userId, token) {
         return deviceToken(GCM, false, userId, token);
     }
 

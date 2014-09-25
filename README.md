@@ -90,9 +90,9 @@ The Outbound Javascript library is designed to work in both browsers and within 
         errorCallback
     )
 
-    // Revoke a device token
-    // Change name to "revokeGcmToken" to revoke GCM token
-    ob.revokeApnsToken(userId, token).then(
+    // Disable a device token
+    // Change name to "disableGcmToken" to disable GCM token
+    ob.disableApnsToken(userId, token).then(
         successCallback,
         errorCallback
     )
@@ -106,7 +106,7 @@ The Outbound Javascript library is designed to work in both browsers and within 
 - Event names can be anything you want them to be (as long as they are strings) and contain any character you want.
 
 ### Device Tokens
-- If you send a device token through an `identify` call, that is equivalent to sending a `register` call. Regardless of the state of that token it will become active again and we will attempt to send notifications to it. It is recommended that if you use the `register` and `revoke` calls that you DO NOT send any tokens in `identify` calls. This way you can more easily control the state of your tokens.
+- If you send a device token through an `identify` call, that is equivalent to sending a `register` call. Regardless of the state of that token it will become active again and we will attempt to send notifications to it. It is recommended that if you use the `register` and `disable` calls that you DO NOT send any tokens in `identify` calls. This way you can more easily control the state of your tokens.
 
 ### Callbacks
 - Error callback takes a single parameter which will be an error object containing 2 properties: `receivedCall` and `message`. `receivedCall` is a `boolean` indicating whether or not Outbound received the API call or if the request failed prior. `message` will be a string describe what exactly went wrong.
