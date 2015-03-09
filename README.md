@@ -59,8 +59,8 @@ The Outbound Javascript library is designed to work in both browsers and within 
 
     // Identify a user
     var userAttributes = {
-        first_name: "First",
-        last_name: "Last",
+        firstName: "First",
+        lastName: "Last",
         email: "username@domain.com",
         phoneNumber: "5551234567",
         apnsTokens: ["ios device token"],
