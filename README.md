@@ -64,7 +64,7 @@ The Outbound Javascript library is designed to work in both browsers and within 
 - A user ID should be static. It should be the same value you use to identify the user in your own system.
 - Some times you don't have a user id yet for a user but you still want to identify them and trigger events for them. You can do this by generating a new ID (call this the anonymous ID) and identify the user as you normally would. Then, once the user becomes a real, identifiable user and you have a real ID for them, make another identify call, this time pass in the anonymous ID as the previous ID.
 
-    ob.identify(newUserId, {previousId: anonymousId})
+        ob.identify(newUserId, {previousId: anonymousId})
 
 ### Groups
 You can create a set of attributes and have them be inherited by a group of users. This can all be done with the `identify` call.
@@ -77,7 +77,9 @@ You can create a set of attributes and have them be inherited by a group of user
     }
     ob.identify(userId, userInfo)
 
-You only need to pass in the group attributes when they are initially set or when they are updated but you do need to set the group id for each user you want to be in the group.
+- Group IDs are treated just like user IDs. They should only be strings or numbers.
+- Users in a group will inherit group attributes but user attributes take precedences. So if there is an attribute `state` set on the group and it is set to "California" and there is also a `state` attribute set on the user but set to "New York", the value for that user is "New York". If the user didn't have that attribute, the value of `state` for that user would be the group value which is "California".
+- You only need to pass in the group attributes when they are initially set or when they are updated but you do need to set the group id for each user you want to be in the group.
 
 ### Event Name
 - An event name in a track can only be a string. Any other type of value will trigger an error and the call will not be sent to Outbound.
