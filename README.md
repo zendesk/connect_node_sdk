@@ -9,44 +9,6 @@ Example: When a user in San Francisco(user attribute) does signup(event) but doe
 
 The Outbound Javascript library is designed to work in both browsers and within a node.js app.
 
-## Browser
-### Installation
-
-    bower install outbound
-
-### Usage
-
-    <script src="outbound.js"></script>
-    <script>
-        var ob = new outbound("YOUR API KEY");
-
-        // Identify a user
-        var userAttributes = {
-            first_name: "First",
-            last_name: "Last",
-            email: "username@domain.com",
-            phoneNumber: "5551234567",
-            apnsTokens: ["ios device token"],
-            gcmTokens: ["android device token"],
-            attributes: {
-                someCustomAttribute: "lorem ipsum"
-            }
-        };
-        ob.identify(userId, userAttributes).then(
-            successCallback,
-            errorCallback
-        )
-
-        // Track an event
-        eventProperties = {
-            eventAttr1: "Something"
-        }
-        ob.track(userId, eventName, eventProperties).then(
-            successCallback,
-            errorCallback
-        )
-    </script>
-
 ## Node.js
 ### Installation
 
@@ -100,6 +62,22 @@ The Outbound Javascript library is designed to work in both browsers and within 
 ### User ID
 - A user ID must ALWAYS be a string or a number. Anything else will trigger an error and the call will not be sent to Outbound. User IDs are always stored as strings. Keep this in mind if you have different types. A user with ID of 1 (the number) will be considered the same as user with ID of "1" (the string).
 - A user ID should be static. It should be the same value you use to identify the user in your own system.
+- Some times you don't have a user id yet for a user but you still want to identify them and trigger events for them. You can do this by generating a new ID (call this the anonymous ID) and identify the user as you normally would. Then, once the user becomes a real, identifiable user and you have a real ID for them, make another identify call, this time pass in the anonymous ID as the previous ID.
+
+    ob.identify(newUserId, {previousId: anonymousId})
+
+### Groups
+You can create a set of attributes and have them be inherited by a group of users. This can all be done with the `identify` call.
+
+    userInfo = {
+        groupId: identifier for the group,
+        groupAttributes: {
+            ... any attributes you want to share about all members of the group ...
+        }
+    }
+    ob.identify(userId, userInfo)
+
+You only need to pass in the group attributes when they are initially set or when they are updated but you do need to set the group id for each user you want to be in the group.
 
 ### Event Name
 - An event name in a track can only be a string. Any other type of value will trigger an error and the call will not be sent to Outbound.
