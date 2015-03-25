@@ -37,7 +37,7 @@
             if (info.groupId && typeof info.groupId) {
                 data.group_id = info.groupId;
             }
-            if (info.groupAttributes && typeof info.groupAttributes) {
+            if (info.groupAttributes && Object.prototype.toString.call(info.groupAttributes) === '[object Object]') {
                 data.group_attributes = info.groupAttributes;
             }
             if (info.firstName && typeof info.firstName) {
