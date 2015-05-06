@@ -15,6 +15,13 @@
   "bugs": {
     "url": "https://github.com/outboundio/lib-javascript/issues"
   },
+  "keywords": [
+    "outbound",
+    "messaging",
+    "analytics",
+    "node-outbound",
+    "outbound.io"
+  ],
   "homepage": "https://github.com/outboundio/lib-javascript",
   "dependencies": {
     "request": "~2.55.0",
