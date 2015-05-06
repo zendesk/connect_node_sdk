@@ -1,6 +1,6 @@
 {
   "name": "outbound",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Outbound Javascript Library",
   "main": "outbound.js",
   "scripts": {
@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/outboundio/lib-javascript",
   "dependencies": {
-    "request": "~2.36.0"
+    "request": "~2.55.0",
+    "underscore": "~1.8.3"
   },
   "devDependencies": {}
 }
