@@ -172,9 +172,9 @@
             requestData = {"user_id": userId, "properties": {}, "event": event};
 
             if (timestamp){
-              requestData.time_stamp = timestamp;
+              requestData.timestamp = timestamp;
             } else {
-              requestData.time_stamp = Math.floor(Date.now() / 1000);
+              requestData.timestamp = Math.floor(Date.now() / 1000);
             }
 
             if (properties && typeof properties === 'object') {
