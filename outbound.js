@@ -163,20 +163,27 @@
 
         var typeofUserId = typeof userId;
         var typeofEvent = typeof event;
+
         if (typeofUserId != "number" && typeofUserId != "string") {
             deferred.reject(error("Invalid user ID. Expected string or number, got " + typeofUserId, false));
         } else if (typeofEvent != "string") {
             deferred.reject(error("Invalid event. Expected string, got " + typeofEvent, false));
         } else {
             requestData = {"user_id": userId, "properties": {}, "event": event};
-            if (!timestamp){
-              requestData.timestamp = Math.floor(Date.now() / 1000);
+
+            if (timestamp){
+              requestData.time_stamp = timestamp;
+            } else {
+              requestData.time_stamp = Math.floor(Date.now() / 1000);
             }
+
             if (properties && typeof properties === 'object') {
                 requestData.properties = properties;
             }
+
             post('/track', requestData, deferred);
         }
+
         return deferred.promise;
     };
 
