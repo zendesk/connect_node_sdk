@@ -1,6 +1,6 @@
 {
   "name": "outbound",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Outbound Javascript Library",
   "main": "outbound.js",
   "scripts": {
@@ -10,14 +10,22 @@
     "type": "git",
     "url": "git://github.com/outboundio/lib-javascript.git"
   },
-  "authors": "Travis Beauvais",
+  "contributors": ["Travis Beauvais", "Muhammad Usman <muhammad@usmanity.com> (http://usmanity.com)"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/outboundio/lib-javascript/issues"
   },
+  "keywords": [
+    "outbound",
+    "messaging",
+    "analytics",
+    "node-outbound",
+    "outbound.io"
+  ],
   "homepage": "https://github.com/outboundio/lib-javascript",
   "dependencies": {
-    "request": "~2.36.0"
+    "request": "~2.55.0",
+    "underscore": "~1.8.3"
   },
   "devDependencies": {}
 }
