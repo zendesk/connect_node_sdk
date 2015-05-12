@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git://github.com/outboundio/lib-javascript.git"
   },
-  "authors": "Travis Beauvais",
+  "contributors": ["Travis Beauvais", "Muhammad Usman <muhammad@usmanity.com> (http://usmanity.com)"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/outboundio/lib-javascript/issues"
