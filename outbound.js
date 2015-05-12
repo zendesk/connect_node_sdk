@@ -203,6 +203,5 @@
         return deviceToken(GCM, false, userId, token);
     };
 
-    typeof window !== 'undefined' && (window.outbound = Outbound);
-    typeof module !== 'undefined' && module.exports && (module.exports = Outbound);
+    module.exports = Outbound;
 })();
