@@ -211,6 +211,18 @@
         return deferred.promise;
     };
 
+    Outbound.prototype.trackBatch = function(events) {
+      var deferred = D();
+
+      if (!Array.isArray(events)) {
+        deferred.reject(error("Invalid events array. Expected array, got " + (typeof events), false));
+      } else {
+        post('/track/batch', events, deferred);
+      }
+
+      return deferred.promise;
+    };
+
     Outbound.prototype.registerApnsToken = function(userId, token) {
         return deviceToken(APNS, true, userId, token);
     };
