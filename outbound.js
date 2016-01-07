@@ -213,11 +213,32 @@
 
     Outbound.prototype.trackBatch = function(events) {
       var deferred = D();
+      var userIdError;
+      var eventError;
 
       if (!Array.isArray(events)) {
         deferred.reject(error("Invalid events array. Expected array, got " + (typeof events), false));
       } else {
-        post('/track/batch', events, deferred);
+        if (events.length > 100) {
+          deferred.reject(error("Events array can not contain more than 100 events. Got " + events.length, false));
+        } else {
+          for (var i = 0, len = events.length; i < len; i++) {
+            // validate user_id and event in each event
+            userIdError = getUserIdError(events[i].user_id);
+            if (userIdError) {
+              deferred.reject(userIdError);
+              return deferred.promise;
+            } else {
+              eventError = getEventError(events[i].event);
+              if (eventError) {
+                deferred.reject(eventError);
+                return deferred.promise;
+              }
+            }
+          }
+
+          post('/track/batch', events, deferred);
+        }
       }
 
       return deferred.promise;
