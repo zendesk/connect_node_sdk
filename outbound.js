@@ -121,15 +121,39 @@
         }
     }
 
+    function getUserIdError(userId) {
+      var typeofUserId = typeof userId;
+      if (typeofUserId != "number" && typeofUserId != "string") {
+          return error("Invalid user ID. Expected string or number, got " + typeofUserId, false);
+      }
+      return null;
+    }
+
+    function getTokenError(token) {
+      var typeofToken = typeof token;
+      if (typeofToken != "string") {
+        return error("Invalid token. Expected string, got " + typeofToken, false);
+      }
+      return null;
+    }
+
+    function getEventError(event) {
+      var typeofEvent = typeof event;
+      if (typeofEvent != "string") {
+          return error("Invalid event. Expected string, got " + typeofEvent, false);
+      }
+      return null;
+    }
+
     function deviceToken(platform, register, userId, token) {
         var deferred = D();
 
-        var typeofUserId = typeof userId;
-        var typeofToken = typeof token;
-        if (typeofUserId != "number" && typeofUserId != "string") {
-            deferred.reject(error("Invalid user ID. Expected string or number, got " + typeofUserId, false));
-        } else if (typeofToken != "string") {
-            deferred.reject(error("Invalid token. Expected string, got " + typeofToken, false));
+        var userIdError = getUserIdError(userId);
+        var tokenError = getTokenError(token);
+        if (userIdError) {
+            deferred.reject(userIdError);
+        } else if (tokenError) {
+            deferred.reject(tokenError);
         } else {
             requestData = {"user_id": userId, "token": token}
             post('/' + platform + '/' + (register ? 'register' : 'disable'), requestData, deferred);
@@ -144,9 +168,9 @@
     Outbound.prototype.identify = function(userId, attributes) {
         var deferred = D();
 
-        var typeofUserId = typeof userId;
-        if (typeofUserId != "number" && typeofUserId != "string") {
-            deferred.reject(error("Invalid user ID. Expected string or number, got " + typeofUserId, false));
+        var userIdError = getUserIdError(userId);
+        if (userIdError) {
+            deferred.reject(userIdError);
         } else {
             requestData = {"user_id": userId};
             user = userObject(attributes);
@@ -161,13 +185,13 @@
     Outbound.prototype.track = function(userId, event, properties, timestamp) {
         var deferred = D();
 
-        var typeofUserId = typeof userId;
-        var typeofEvent = typeof event;
+        var userIdError = getUserIdError(userId);
+        var eventError = getEventError(event);
 
-        if (typeofUserId != "number" && typeofUserId != "string") {
-            deferred.reject(error("Invalid user ID. Expected string or number, got " + typeofUserId, false));
-        } else if (typeofEvent != "string") {
-            deferred.reject(error("Invalid event. Expected string, got " + typeofEvent, false));
+        if (userIdError) {
+            deferred.reject(userIdError);
+        } else if (eventError) {
+            deferred.reject(eventError);
         } else {
             requestData = {"user_id": userId, "properties": {}, "event": event};
 
@@ -185,6 +209,39 @@
         }
 
         return deferred.promise;
+    };
+
+    Outbound.prototype.trackBatch = function(events) {
+      var deferred = D();
+      var userIdError;
+      var eventError;
+
+      if (!Array.isArray(events)) {
+        deferred.reject(error("Invalid events array. Expected array, got " + (typeof events), false));
+      } else {
+        if (events.length > 100) {
+          deferred.reject(error("Events array can not contain more than 100 events. Got " + events.length, false));
+        } else {
+          for (var i = 0, len = events.length; i < len; i++) {
+            // validate user_id and event in each event
+            userIdError = getUserIdError(events[i].user_id);
+            if (userIdError) {
+              deferred.reject(userIdError);
+              return deferred.promise;
+            } else {
+              eventError = getEventError(events[i].event);
+              if (eventError) {
+                deferred.reject(eventError);
+                return deferred.promise;
+              }
+            }
+          }
+
+          post('/track/batch', events, deferred);
+        }
+      }
+
+      return deferred.promise;
     };
 
     Outbound.prototype.registerApnsToken = function(userId, token) {
