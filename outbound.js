@@ -3,7 +3,7 @@
     var _ = require('underscore');
 
     var BASE_URL = "https://api.outbound.io/v2";
-    var VERSION = '1.0.0';
+    var VERSION = '1.1.0';
 
     var APNS = "apns";
     var GCM = "gcm";
