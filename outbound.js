@@ -162,17 +162,22 @@ function subscription(userId, unsubscribe, all, campaignIds) {
     return deferred.promise;
 }
 
-function deviceToken(platform, register, userId, token) {
+function deviceToken(platform, register, userId, token, all) {
     var deferred = D();
 
     var userIdError = getUserIdError(userId);
     var tokenError = getTokenError(token);
     if (userIdError) {
         deferred.reject(userIdError);
-    } else if (tokenError) {
+    } else if (all !== true && tokenError) {
         deferred.reject(tokenError);
     } else {
-        requestData = {"user_id": userId, "token": token}
+        requestData = {"user_id": userId}
+        if (all === true) {
+            requestData["all"] = true;
+        } else {
+            requestData["token"] = token;
+        }
         post('/' + platform + '/' + (register ? 'register' : 'disable'), requestData, deferred);
     }
     return deferred.promise;
@@ -292,5 +297,13 @@ Outbound.prototype.disableApnsToken = function(userId, token) {
 Outbound.prototype.disableGcmToken = function(userId, token) {
     return deviceToken(GCM, false, userId, token);
 };
+
+Outbound.prototype.disableAllGcmTokens = function(userId) {
+    return deviceToken(GCM, false, userId, undefined, true);
+}
+
+Outbound.prototype.disableAllApnsTokens = function(userId) {
+    return deviceToken(APNS, false, userId, undefined, true);
+}
 
 module.exports = Outbound;
