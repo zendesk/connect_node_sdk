@@ -118,10 +118,10 @@ function post(endpoint, data, deferred) {
     }
 }
 
-function getUserIdError(userId) {
+function getUserIdError(userId, isPrevious) {
     var typeofUserId = typeof userId;
     if (typeofUserId != "number" && typeofUserId != "string") {
-        return error("Invalid user ID. Expected string or number, got " + typeofUserId, false);
+        return error("Invalid " + (!isPrevious ? "user" : "previous") + " ID. Expected string or number, got " + typeofUserId, false);
     }
     return null;
 }
@@ -201,6 +201,22 @@ Outbound.prototype.subscribeAll = function(userId) {
 
 Outbound.prototype.subscribeCampaigns = function(userId, campaignIds) {
     return subscription(userId, false, false, campaignIds);
+};
+
+Outbound.prototype.alias = function(userId, previousId) {
+    var deferred = D();
+
+    var userIdError = getUserIdError(userId);
+    var prevIdError = getUserIdError(previousId, true)
+    if (userIdError) {
+        deferred.reject(userIdError);
+    } else if (prevIdError) {
+        deferred.reject(prevIdError);
+    } else {
+        requestData = {"user_id": userId, "previous_id": previousId};
+        post('/identify', requestData, deferred);
+    }
+    return deferred.promise;
 };
 
 Outbound.prototype.identify = function(userId, attributes) {
