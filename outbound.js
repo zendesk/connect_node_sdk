@@ -40,7 +40,8 @@ function userObject(info) {
       phone_number: info.phoneNumber,
       group_id: info.groupId,
       group_attributes: info.groupAttributes,
-      previous_id: info.previousId
+      previous_id: info.previousId,
+      timezone: info.timezone
     };
 
     // only add attributes if attributes exist
@@ -152,7 +153,7 @@ function subscription(userId, unsubscribe, all, campaignIds) {
     } else if (!all && (Object.prototype.toString.call(campaignIds) != arrayType || campaignIds.length == 0)) {
         deferred.reject(error("At least one campaign ID required."));
     } else {
-        requestData = {"user_id": userId}
+        requestData = {"user_id": userId};
         if (!all) {
             requestData["campaign_ids"] = campaignIds;
         }
@@ -172,7 +173,7 @@ function deviceToken(platform, register, userId, token, all) {
     } else if (all !== true && tokenError) {
         deferred.reject(tokenError);
     } else {
-        requestData = {"user_id": userId}
+        requestData = {"user_id": userId};
         if (all === true) {
             requestData["all"] = true;
         } else {
@@ -207,7 +208,7 @@ Outbound.prototype.alias = function(userId, previousId) {
     var deferred = D();
 
     var userIdError = getUserIdError(userId);
-    var prevIdError = getUserIdError(previousId, true)
+    var prevIdError = getUserIdError(previousId, true);
     if (userIdError) {
         deferred.reject(userIdError);
     } else if (prevIdError) {
@@ -316,10 +317,10 @@ Outbound.prototype.disableGcmToken = function(userId, token) {
 
 Outbound.prototype.disableAllGcmTokens = function(userId) {
     return deviceToken(GCM, false, userId, undefined, true);
-}
+};
 
 Outbound.prototype.disableAllApnsTokens = function(userId) {
     return deviceToken(APNS, false, userId, undefined, true);
-}
+};
 
 module.exports = Outbound;
