@@ -24,8 +24,8 @@
   ],
   "homepage": "https://github.com/outboundio/lib-javascript",
   "dependencies": {
-    "request": "~2.55.0",
-    "underscore": "~1.8.3"
+    "request": "~2.88.2",
+    "underscore": "~1.13.6"
   },
   "devDependencies": {}
 }
